@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { withRouter } from 'react-router-dom';
 import {Form, Input, Button, Row, Col, Icon} from 'antd'
 import './index.scss'
 
@@ -19,6 +20,9 @@ class Login extends Component {
           loading: true
         })
         setTimeout( () => {
+          if (values.user === 'admin' && values.password === 'admin') {
+            this.props.history.replace('/');
+          }
           this.setState({
             loading: false
         })

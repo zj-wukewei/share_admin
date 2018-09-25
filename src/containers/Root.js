@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import route from '../route';
-import { HashRouter as Router } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import Login from '../containers/Login'
+import Layout from '../containers/Layout'
 
 export default class Root extends Component {
     render() {
-    if (!this.route) this.route = route;
     return (
-        <Router children={this.route}/>
+        <Router>
+            <Switch>
+                <Route path="/login" component={Login}/>
+                <Route path="/" component={Layout}/>
+            </Switch>
+        </Router>
     );
   }
 }
