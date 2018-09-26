@@ -18,22 +18,11 @@
     font-size: 25px;
     color: #fff;
   }
-  .ant-layout-sider-collapsed{
+  >.ant-layout-header{
     .anticon{
       font-size: 16px;
       margin-left: 8px;
     }
-    .nav-text{
-      display: none;
-    }
-    .ant-menu-submenu-vertical > .ant-menu-submenu-title:after{
-      display: none;
-    }
-    .ant-menu-dark:not(.ant-menu-inline) .ant-menu-submenu-open {
-      color: inherit;
-    }
   }
-  p {
-    margin: 10px 0 10px 0;
-  }
+
 }

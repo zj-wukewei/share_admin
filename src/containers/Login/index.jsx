@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { doLogin } from './action';
 import {Form, Input, Button, Row, Col, Icon} from 'antd'
 import './index.scss'
 
@@ -16,19 +17,15 @@ class Login extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values)
-        this.setState({
-          loading: true
-        })
-        setTimeout( () => {
-          if (values.user === 'admin' && values.password === 'admin') {
-            this.props.history.replace('/');
-          }
-          this.setState({
-            loading: false
-        })
-        }, 2000)
+        this.props.doLogin(values)
       }
     })
+  }
+
+  componentWillReceiveProps = (nextProps) => { 
+    if (nextProps.login.loginSuccess && !this.props.login.loginSuccess) { 
+      console.log(this.props.login)
+    }
   }
 
   render() {
@@ -39,7 +36,7 @@ class Login extends Component {
           <Form layout="horizontal" onSubmit={this.handleSubmit} className="login-form">
             <h2 className="logo"><span>Share</span></h2>
             <FormItem>
-              {getFieldDecorator('user', {
+              {getFieldDecorator('mobile', {
                 rules: [{required: true, message: '请输入用户名!'}]
               })(
                 <Input prefix={<Icon type="user" style={{fontSize: 13}}/>} placeholder='用户名'/>
@@ -63,4 +60,12 @@ class Login extends Component {
   }
 }
 
-export default Form.create()(Login)
+function mapStateToProps(state) {
+  return {
+     login: state.login
+  }
+}
+
+
+
+export default connect(mapStateToProps, { doLogin })(Form.create()(Login))
