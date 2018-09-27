@@ -3,9 +3,9 @@ import SiderCustom from '../../components/Sider';
 import HeaderCustom from '../../components/Header';
 import { Layout } from 'antd'
 import Routes from '../../route';
+import Breadcrumb from '../../components/Breadcrumb';
 
-
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 class App extends Component {
 
@@ -27,9 +27,12 @@ class App extends Component {
                 />
                 <Layout>
                     <HeaderCustom collapsed={this.state.collapsed} toggle={this.toggle} />
-                    <Content style={{ margin: '0 16px' }}>
+                    <div style={{ margin: '0 16px', height: '100%' }}>
+                    <Breadcrumb></Breadcrumb>
+                    <Content>
                         <Routes/>
                     </Content>
+                    </div>
                     <Footer style={{ textAlign: 'center' }}>
                         Share ©2018 Created by GoGo
                     </Footer>

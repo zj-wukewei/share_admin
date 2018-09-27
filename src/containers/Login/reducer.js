@@ -2,6 +2,7 @@ import { fromJS } from 'immutable';
 import { types } from './constant';
 import * as phrase from '../../constants/phrase';
 import { flagState } from '../../reducers/reducerUitls';
+import UserManager from '../../utils/userManager';
 
 const initialState = {
   account: {},
@@ -14,8 +15,8 @@ export default function login(iState = initialState, action) {
 
   switch (action.type) {
     case types.DO_LOGIN + phrase.SUCCESS:
+      UserManager.set(action.data)
       nextIState = nextIState.set('account', action.data)
-        .set('loginFailMsg', '')
       break;
     
     case types.DO_LOGIN + phrase.FAILURE:

@@ -25,15 +25,17 @@ const UserManager = {
     },
 
     set: function (user) {
-        token = user.token
-        uId = user.uId
-        Cookies.set(TOKEN_KEY, token)
-        Cookies.set(UID_KEY, uId)
+        if (user) {
+            token = user.token
+            uId = user.uId
+            Cookies.set(TOKEN_KEY, token)
+            Cookies.set(UID_KEY, uId)
+        }
     },
 
     get: function () {
         if (!token || !uId) {
-
+            this.init();
         }
         return {
             token,

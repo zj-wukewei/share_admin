@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
+import * as md5 from 'md5';
 import { doLogin } from './action';
 import {Form, Input, Button, Row, Col, Icon} from 'antd'
 import './index.scss'
@@ -17,7 +18,7 @@ class Login extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values)
-        this.props.doLogin(values)
+        this.doLogin(values)
       }
     })
   }
@@ -25,7 +26,13 @@ class Login extends Component {
   componentWillReceiveProps = (nextProps) => { 
     if (nextProps.login.loginSuccess && !this.props.login.loginSuccess) { 
       console.log(this.props.login)
+      this.props.history.push('/app');
     }
+  }
+
+  doLogin = (data) => {
+    data.password = md5(data.password);
+    this.props.doLogin(data)
   }
 
   render() {
@@ -46,7 +53,7 @@ class Login extends Component {
               {getFieldDecorator('password', {
                 rules: [{required: true, message: '请输入密码!'}]
               })(
-                <Input prefix={<Icon type="lock" style={{fontSize: 13}}/>} placeholder='密码'/>
+                <Input prefix={<Icon type="lock" style={{fontSize: 13}}/>} type="password"  placeholder='密码'/>
               )}
             </FormItem>
             <Button type="primary" loading={this.state.loading} htmlType="submit" className="login-form-button" style={{width: '100%'}}>

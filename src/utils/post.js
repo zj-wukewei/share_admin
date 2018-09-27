@@ -15,7 +15,7 @@ function preHandle(url, option) {
   const body = option.body
 
   let contentType = 'application/json;charset=utf-8'
-  if (option.body && option.type == 'json') {
+  if (option.body && option.type === 'json') {
     contentType = 'application/json;charset=utf-8'
   }
   const user = UserManager.get()
@@ -35,7 +35,7 @@ function preHandle(url, option) {
   }
 
   if (body) {
-    if (option.type == 'text') {
+    if (option.type === 'text') {
       request.body = _bodyParam(body)
     } else {
       request.body = JSON.stringify(body)
@@ -52,17 +52,17 @@ function method(type) {
 
     return new Promise((resolve, reject) => {
       fetch(handleArg.url, handleArg.request).then(response => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           return response.json()
         }
-        if (response.status == 404) {
+        if (response.status === 404) {
           // return Promise.resolve({
           //   status: -1, msg: '未找到指定接口，请联系开发人员'
           // })
           message.error('未找到指定接口，请联系开发人员');
           return;
         }
-        if (response.status == 400) {
+        if (response.status === 400) {
           // return Promise.resolve({
           //   status: -1, msg: '未找到指定接口，请联系开发人员'
           // })
@@ -76,7 +76,7 @@ function method(type) {
       }).then(result => {
         try {
           console.log('result', result)
-          if (result.code == 0) {
+          if (result.code === 0) {
             resolve(result.data)
           } else {
             console.log('resultmsg', result.msg)
@@ -122,7 +122,7 @@ function _bodyParam(paramObj) {
     if (paramObj.hasOwnProperty(param)) {
       if (paramObj[param]) {
         let prefix = ''
-        if (current++ == 0) {
+        if (current++ === 0) {
           prefix = ''
         } else {
           prefix = ','

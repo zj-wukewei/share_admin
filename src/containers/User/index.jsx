@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 
 class User extends Component {
+
+    state = {
+        pageNum: 1,
+        pageSize: 20
+    }
+
     render() {
-        console.log('user')
         return (
             <div>
                 User_PAGE

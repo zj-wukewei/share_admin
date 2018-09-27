@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 
-class Tag extends Component {
+class Home extends Component {
     render() {
+        console.log('Home')
         return (
             <div>
-                TAG_PAGE
+                Home_PAGE
             </div>
         )
     }
 }
 
-export default Tag
+export default Home
