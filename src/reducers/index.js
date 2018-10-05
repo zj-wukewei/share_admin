@@ -1,9 +1,14 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux'
 
-import login from '../containers/Login/reducer'; 
+import {wrapReducerState} from './reducerUitls'
+import {types as UserTypes} from '../containers/User/constant'
+import data from './data.reducer'
+
+import login from '../containers/Login/reducer'
 
 const rootReducer = combineReducers({
-    login
-});
-  
-export default rootReducer;
+  login,
+  userList: wrapReducerState(data(UserTypes.FETCH_USER_LIST))
+})
+
+export default rootReducer

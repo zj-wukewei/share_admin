@@ -1,4 +1,4 @@
-import { message } from 'antd';
+import {message} from 'antd'
 import UserManager from './userManager'
 
 function preHandle(url, option) {
@@ -29,7 +29,7 @@ function preHandle(url, option) {
       'Content-Type': contentType,
       'APP-ID': '0',
       'APP-VERSION': '1',
-      'APP-MODEL': 'admin',
+      'APP-MODEL': 'PC',
       'TOKEN': user.token
     }
   }
