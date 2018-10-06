@@ -1,0 +1,4 @@
+export const types = {
+  FETCH_CATEGORY_LIST: 'FETCH_CATEGORY_LIST',
+  ADD_CATEGORY: 'ADD_CATEGORY'
+}

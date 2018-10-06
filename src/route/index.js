@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import React, {Component} from 'react'
+import {Redirect, Route, Switch} from 'react-router-dom'
 
-import User from '../containers/User';
-import Tag from '../containers/Tag';
-import Home from '../containers/Home';
-import UserManager from '../utils/userManager';
+import User from '../containers/User'
+import Tag from '../containers/Tag'
+import Home from '../containers/Home'
+import UserManager from '../utils/userManager'
 
 export const menus = [
   {
@@ -13,7 +13,7 @@ export const menus = [
   {
     key: '/app/manager', title: '管理', icon: 'hdd',
     subs: [
-      { key: '/app/manager/tag', title: '标签', component: Tag }
+      {key: '/app/manager/tag', title: '分类', component: Tag}
     ]
   },
   {

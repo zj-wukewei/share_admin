@@ -1,18 +1,19 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Table} from 'antd'
+import {PageNum, PageSize} from '../../constants/constant'
 
 class TableCustom extends Component {
   state = {
     pagination: {
-      current: 1
+      current: PageNum
     }
   }
 
   componentDidMount() {
     this.props.onPageChange({
       pageNum: this.state.pagination.current,
-      pageSize: 10
+      pageSize: PageSize
     })
   }
 
@@ -26,6 +27,7 @@ class TableCustom extends Component {
   render() {
     return (
       <Table
+        bordered
         rowKey={this.props.rowKey}
         pagination={this.state.pagination}
         dataSource={this.props.dataSource}

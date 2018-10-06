@@ -24,10 +24,15 @@ export function flagState(iState, action) {
     get: () => nextIState,
     handle: (type, key) => {
       if (action.type === type + phase.START) {
-        nextIState = iState.set(key, false)
+        nextIState = iState.set(key, false).set('loading', true)
+
       }
       if (action.type === type + phase.SUCCESS) {
-        nextIState = iState.set(key, true)
+        nextIState = iState.set(key, true).set('loading', false)
+      }
+
+      if (action.type === type + phase.FAILURE) {
+        nextIState = iState.set('loading', false)
       }
       return chain
     }

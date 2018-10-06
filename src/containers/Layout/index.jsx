@@ -28,8 +28,8 @@ class App extends Component {
                 <Layout>
                     <HeaderCustom collapsed={this.state.collapsed} toggle={this.toggle} />
                     <div style={{ margin: '0 16px', height: '100%' }}>
-                    <Breadcrumb></Breadcrumb>
-                      <Content style={{background: '#fff', padding: '20px'}}>
+                      <Breadcrumb/>
+                      <Content style={{background: '#fff', padding: '20px', borderRadius: '4px'}}>
                         <Routes/>
                     </Content>
                     </div>

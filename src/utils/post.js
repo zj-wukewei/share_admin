@@ -75,7 +75,6 @@ function method(type) {
 
       }).then(result => {
         try {
-          console.log('result', result)
           if (result.code === 0) {
             resolve(result.data)
           } else {
