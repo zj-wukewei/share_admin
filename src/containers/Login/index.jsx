@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import { connect } from 'react-redux';
-import * as md5 from 'md5';
-import { doLogin } from './action';
-import {Form, Input, Button, Row, Col, Icon} from 'antd'
+import {connect} from 'react-redux'
+import * as md5 from 'md5'
+import {doLogin} from './action'
+import {Button, Col, Form, Icon, Input, Row} from 'antd'
 import './index.scss'
 
 const FormItem = Form.Item
@@ -23,7 +23,7 @@ class Login extends Component {
     })
   }
 
-  componentWillReceiveProps = (nextProps) => { 
+  componentWillReceiveProps = (nextProps) => {
     if (nextProps.login.loginSuccess && !this.props.login.loginSuccess) { 
       console.log(this.props.login)
       this.props.history.push('/app');
@@ -72,7 +72,5 @@ function mapStateToProps(state) {
      login: state.login
   }
 }
-
-
 
 export default connect(mapStateToProps, { doLogin })(Form.create()(Login))

@@ -56,23 +56,16 @@ function method(type) {
           return response.json()
         }
         if (response.status === 404) {
-          // return Promise.resolve({
-          //   status: -1, msg: '未找到指定接口，请联系开发人员'
-          // })
           message.error('未找到指定接口，请联系开发人员');
           return;
         }
         if (response.status === 400) {
-          // return Promise.resolve({
-          //   status: -1, msg: '未找到指定接口，请联系开发人员'
-          // })
-          message.error(response.msg);
+          message.error('错误请求，请联系开发人员')
           return;
         }
-        // return Promise.resolve({
-        //   status: -1, msg: 'HTTP: ' + response.status
-        // })
 
+        message.error(response.msg)
+       
       }).then(result => {
         try {
           if (result.code === 0) {

@@ -25,6 +25,9 @@ class TableCustom extends Component {
   }
 
   render() {
+    const rowSelection = {
+      onSelect: this.props.onSelect
+    }
     return (
       <Table
         bordered
@@ -33,6 +36,11 @@ class TableCustom extends Component {
         dataSource={this.props.dataSource}
         columns={this.props.columns}
         onChange={this.handleOnChange}
+        onRow={(record) => {
+          return {
+            onClick: () => this.props.onRowClick(record)
+          }
+        }}
         loading={this.props.loading}/>
     )
   }
@@ -44,7 +52,8 @@ TableCustom.propTypes = {
   dataSource: PropTypes.array,
   columns: PropTypes.array,
   onPageChange: PropTypes.func,
-  rowKey: PropTypes.func
+  rowKey: PropTypes.func,
+  onRowClick: PropTypes.func
 }
 
 export default TableCustom

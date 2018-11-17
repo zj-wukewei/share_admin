@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { Layout, Menu, Icon } from 'antd';
-import { menus } from '../../route';
-import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import React, {Component} from 'react'
+import {Icon, Layout, Menu} from 'antd'
+import {menus} from '../../route'
+import {Link, withRouter} from 'react-router-dom'
 
 const { Sider } = Layout;
 
@@ -62,6 +61,10 @@ class SiderCustom extends Component {
     }
 
     renderMenuItem = (item) => {
+      if (typeof(item.sub) != 'undefined' && !item.sub) {
+        return null
+      }
+
         return (
             <Menu.Item
                 key={item.key}

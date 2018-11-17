@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Redirect, Route, Switch} from 'react-router-dom'
 
 import User from '../containers/User'
+import UserInfo from '../containers/User/UserInfo'
 import Tag from '../containers/Tag'
 import Home from '../containers/Home'
 import UserManager from '../utils/userManager'
@@ -19,7 +20,8 @@ export const menus = [
   {
     key: '/app/system', title: '系统', icon: 'setting',
     subs: [
-      { key: '/app/system/user', title: '用户', component: User }
+      {key: '/app/system/user', title: '用户', component: User},
+      {key: '/app/system/user/:uId', title: '用户详情', component: UserInfo, sub: false}
     ]
   },
 ]
