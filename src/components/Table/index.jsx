@@ -53,7 +53,7 @@ TableCustom.propTypes = {
   loading: PropTypes.bool,
   dataSource: PropTypes.array,
   columns: PropTypes.array,
-  onPageChange: PropTypes.func,
+  onChange: PropTypes.func,
   rowKey: PropTypes.func,
   onRowClick: PropTypes.func,
   current: PropTypes.number

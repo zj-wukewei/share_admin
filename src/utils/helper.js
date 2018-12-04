@@ -12,6 +12,9 @@ export function handleListData(responseData) {
 
 
 export function handleDate(time) {
-  return moment(time).format('YYYY-MM-DD HH:mm')
+  //todo 待处理 java LocalDateTime 类型传来之后月份差1使用moment解析
+  console.log('time', time.toString())
+  time[1] = time[1] - 1
+  return moment(time).format('YYYY-MM-DD h:mm:ss a')
 }
 

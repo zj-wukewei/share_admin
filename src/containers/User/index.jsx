@@ -41,7 +41,7 @@ class User extends Component {
       }, {
         title: '登录时间',
         dataIndex: 'updateTime',
-        render: (time) => `${handleDate(time)}`
+        render: (updateTime) => `${handleDate(updateTime)}`
       }, {
         title: '状态',
         dataIndex: 'deleted',
@@ -51,15 +51,16 @@ class User extends Component {
   }
 
   onPageChange = (pagination, filters, sorter) => {
+    console.log('onPageChange', pagination)
     this.setState({
       pageNum: pagination.current,
       pageSize: pagination.pageSize
-    }, this.fetchUserInfo)
+    }, this.fetchUserList)
   }
 
   fetchUserList = () => {
     console.log('fetchUserList', this.state)
-    this.props.fetchUserList({...this.state})
+    this.props.fetchUserList(this.state)
   }
 
   handleToggle = (userId, enable) => {
@@ -92,7 +93,7 @@ class User extends Component {
         rowKey={record => record.id}
         columns={this.columns}
         loading={loading}
-        onPageChange={this.onPageChange}
+        onChange={this.onPageChange}
         total={total}
         current={this.state.pageNum}
         dataSource={list}/>

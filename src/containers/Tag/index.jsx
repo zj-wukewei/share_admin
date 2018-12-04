@@ -9,21 +9,38 @@ import AddCategoryDialog from './dialog/AddCategoryDialog'
 import {addCategory, fetchCategoryList} from './action'
 import {handleListData} from '../../utils/helper'
 import {abstractQry} from '../../constants/constant'
+import {PageNum, PageSize} from '../../constants/constant'
 
 class Tag extends Component {
 
   state = {
-    showDialog: false
+    showDialog: false,
+    pageNum: PageNum,
+    pageSize: PageSize
   }
 
-  onPageChange = (options) => {
-    this.props.fetchCategoryList(options)
+  onPageChange = (pagination, filters, sorter) => {
+    this.setState({
+      pageNum: pagination.current,
+      pageSize: pagination.pageSize
+    }, this.fetchCategoryList)
   }
 
   handleOnAdd = () => {
     this.setState({
       showDialog: true
     })
+  }
+
+  fetchCategoryList = () => {
+    this.props.fetchCategoryList({
+      pageNum: this.state.pageNum,
+      pageSize: this.state.pageSize
+    })
+  }
+
+  componentDidMount = () => {
+    this.fetchCategoryList()
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -52,8 +69,9 @@ class Tag extends Component {
           rowKey={record => record.id}
           columns={columns}
           loading={loading}
+          onChange={this.onPageChange}
           total={total}
-          onPageChange={this.onPageChange}
+          current={this.state.pageNum}
           dataSource={list}/>
       </div>
     )
