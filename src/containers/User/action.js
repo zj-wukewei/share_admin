@@ -19,7 +19,7 @@ export function changeUserState(uId, deleted) {
   return {
     [THREE_PHASE]: {
       type: types.CHANGE_USER_STATE,
-      http: () => _get(`${urlPrefix}/user/state/${uId}/${deleted}`)
+      http: () => _post(`${urlPrefix}/user/state/${uId}/${deleted}`)
     }
   }
 }

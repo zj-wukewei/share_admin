@@ -1,19 +1,28 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Switch} from 'antd'
+import {Switch, message} from 'antd'
 
 import Table from '../../components/Table'
 import {changeUserState, fetchUserList} from './action'
 
 import {handleDate, handleListData} from '../../utils/helper'
 import {handleAppRole, handleAppType} from './helper'
-
+import {PageNum, PageSize} from '../../constants/constant'
 
 class User extends Component {
+
+  state = {
+    pageNum: PageNum,
+    pageSize: PageSize
+  }
 
   constructor(props) {
     super(props)
     this.columns = [{
+      title: 'Id',
+      dataIndex: 'id',
+      render: (id) => <div onClick={() => this.handleOnRowClick(id)}>{id}</div>
+    },{
       title: '手机',
       dataIndex: 'phone'
     }, {
@@ -41,17 +50,40 @@ class User extends Component {
       }]
   }
 
-  onPageChange = (options) => {
-    this.props.fetchUserList(options)
+  onPageChange = (pagination, filters, sorter) => {
+    this.setState({
+      pageNum: pagination.current,
+      pageSize: pagination.pageSize
+    }, this.fetchUserInfo)
+  }
+
+  fetchUserList = () => {
+    console.log('fetchUserList', this.state)
+    this.props.fetchUserList({...this.state})
   }
 
   handleToggle = (userId, enable) => {
     console.log('handleToggle', userId, enable)
+    this.props.changeUserState(userId, !enable)
   }
 
-  handleOnRowClick = (user) => {
-    this.props.history.push(`/app/system/user/${user.id}`)
+  handleOnRowClick = (id) => {
+    this.props.history.push(`/app/system/user/${id}`)
   }
+
+  componentDidMount = () => {
+    this.fetchUserList()
+  }
+
+
+   componentWillReceiveProps = (nextProps) => {
+    if (nextProps.updateUserStatusSuccess && !this.props.updateUserStatusSuccess) {
+      this.fetchUserList()
+      message.success('切换用户状态成功!')
+    }
+  }
+
+  
 
   render() {
     const {loading, total, list} = handleListData(this.props.userList)
@@ -60,9 +92,9 @@ class User extends Component {
         rowKey={record => record.id}
         columns={this.columns}
         loading={loading}
-        total={total}
-        onRowClick={this.handleOnRowClick}
         onPageChange={this.onPageChange}
+        total={total}
+        current={this.state.pageNum}
         dataSource={list}/>
     )
   }
@@ -72,7 +104,8 @@ class User extends Component {
 
 function mapStateToProps(state) {
   return {
-    userList: state.userList
+    userList: state.userList,
+    updateUserStatusSuccess: state.user.updateUserStatusSuccess
   }
 }
 

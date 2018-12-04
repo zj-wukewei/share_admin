@@ -1,44 +1,46 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Table} from 'antd'
-import {PageNum, PageSize} from '../../constants/constant'
+import {PageSize} from '../../constants/constant'
 
 class TableCustom extends Component {
+
   state = {
-    pagination: {
-      current: PageNum
-    }
+    pageSize: PageSize
   }
 
-  componentDidMount() {
-    this.props.onPageChange({
-      pageNum: this.state.pagination.current,
-      pageSize: PageSize
-    })
+ handleOnChange = (pagination, filters, sorter) => {
+    const pageSize = pagination.pageSize;
+    this.setState({
+      pageSize
+    }, () => this.props.onChange(pagination, filters, sorter));
   }
 
-  handleOnChange = (pagination, filters, sorter) => {
-    this.props.onPageChange({
-      pageNum: pagination.current,
-      pageSize: pagination.pageSize
-    })
-  }
+
 
   render() {
-    const rowSelection = {
-      onSelect: this.props.onSelect
-    }
+    const { total, current, ...restProps } = this.props;
+    const { pageSize } = this.state;
+
     return (
       <Table
         bordered
         rowKey={this.props.rowKey}
-        pagination={this.state.pagination}
+        {...restProps}
+        pagination={{
+          showSizeChanger: true,
+          showQuickJumper: true,
+          size: 'large',
+          total,
+          pageSize,
+          current
+        }}
         dataSource={this.props.dataSource}
         columns={this.props.columns}
         onChange={this.handleOnChange}
         onRow={(record) => {
           return {
-            onClick: () => this.props.onRowClick(record)
+            onClick: () => this.props.onRowClick && this.props.onRowClick(record)
           }
         }}
         loading={this.props.loading}/>
@@ -53,7 +55,8 @@ TableCustom.propTypes = {
   columns: PropTypes.array,
   onPageChange: PropTypes.func,
   rowKey: PropTypes.func,
-  onRowClick: PropTypes.func
+  onRowClick: PropTypes.func,
+  current: PropTypes.number
 }
 
 export default TableCustom

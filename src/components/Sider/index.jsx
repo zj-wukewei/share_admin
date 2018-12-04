@@ -61,7 +61,7 @@ class SiderCustom extends Component {
     }
 
     renderMenuItem = (item) => {
-      if (typeof(item.sub) != 'undefined' && !item.sub) {
+      if (typeof(item.sub) !== 'undefined' && !item.sub) {
         return null
       }
 
