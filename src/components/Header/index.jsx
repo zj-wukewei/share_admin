@@ -1,19 +1,64 @@
 import React, { Component } from 'react';
-import { Layout, Icon } from 'antd'
+import { Layout, Icon, Avatar, Popover, Dropdown, Menu } from 'antd'
+
+import './header.scss'
+
+
 const { Header } = Layout;
 
 class HeaderCustom extends Component {
+
+    state = {
+        hovered: false
+    }
+
+    constructor(props) {
+        super(props);
+        this.menu = (
+            <Menu onClick={this.handleMenuClick}>
+                <Menu.Item key="1">退出登录</Menu.Item>
+            </Menu>
+        )
+    }
+
+    handleMenuClick = () => {
+
+    }
+
+
+    handleHoverChange = (visible) => {
+        this.setState({
+            hovered: visible,
+        });
+    }
+
     render() {
+        console.log('account', this.props.account)
         return (
-            <Header style={{ background: '#fff', padding: 0 }}>
+            <Header className="app-header">
+
                 <Icon
                     className="trigger custom-trigger"
                     type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
                     onClick={this.props.toggle}
                 />
+
+
+                <div className="user">
+                    <span>Hi,{this.props.information.nickname}</span>
+                    <Dropdown
+                        overlay={this.menu}>
+                        <Avatar src={this.props.information.avatar} />
+                    </Dropdown>
+
+                </div>
+
             </Header>
         )
     }
 }
+
+
+
 
 export default HeaderCustom;

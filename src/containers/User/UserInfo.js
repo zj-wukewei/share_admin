@@ -1,26 +1,26 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Button, Col, Form, Input, message, Row} from 'antd'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Button, Col, Form, Input, message, Row } from 'antd'
 import SpinCustom from '../../components/Spin'
-import {fetchUserInfo, updateUserInfo} from './action'
+import { fetchUserInfo, updateUserInfo } from './action'
 
 const FormItem = Form.Item
 
 const formItemLayout = {
   labelCol: {
-    xs: {span: 20},
-    sm: {span: 6}
+    xs: { span: 20 },
+    sm: { span: 6 }
   },
   wrapperCol: {
-    xs: {span: 20},
-    sm: {span: 15}
+    xs: { span: 20 },
+    sm: { span: 15 }
   }
 }
 
 class UserInfo extends Component {
 
   componentDidMount() {
-    const {uId} = this.props.match.params
+    const { uId } = this.props.match.params
     this.props.fetchUserInfo(uId)
   }
 
@@ -40,30 +40,30 @@ class UserInfo extends Component {
 
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.user.updateInfoSuccess && !this.props.user.updateInfoSuccess) {
-      const {uId} = this.props.match.params
+      const { uId } = this.props.match.params
       this.props.fetchUserInfo(uId)
       message.success('更新基本信息成功!')
     }
   }
 
   render() {
-    const {getFieldDecorator} = this.props.form
-    const {loaded, data} = this.props.userInfo
+    const { getFieldDecorator } = this.props.form
+    const { loaded, data } = this.props.userInfo
     return (
       <SpinCustom loaded={loaded}>
         <Row className="" type="flex" justify="space-around" align="middle">
           <Col span="8">
             <Form layout="horizontal" onSubmit={this.handleSubmit} className="login-form">
-              <span className="avatar"><img src={data.avatar} alt="头像"/></span>
+              <span className="avatar"><img src={data.avatar} alt="头像" /></span>
               <FormItem
                 label="昵称"
                 hasFeedback
                 {...formItemLayout}
               >
                 {getFieldDecorator('nickname', {
-                  rules: [{required: true, message: '请输入昵称!'}]
+                  rules: [{ required: true, message: '请输入昵称!' }]
                 })(
-                  <Input/>
+                  <Input />
                 )}
               </FormItem>
 
@@ -73,9 +73,9 @@ class UserInfo extends Component {
                 {...formItemLayout}
               >
                 {getFieldDecorator('location', {
-                  rules: [{required: true, message: '请输入地址!'}]
+                  rules: [{ required: true, message: '请输入地址!' }]
                 })(
-                  <Input/>
+                  <Input />
                 )}
               </FormItem>
 
@@ -85,9 +85,9 @@ class UserInfo extends Component {
                 {...formItemLayout}
               >
                 {getFieldDecorator('age', {
-                  rules: [{required: true, message: '请输入年龄!'}]
+                  rules: [{ required: true, message: '请输入年龄!' }]
                 })(
-                  <Input/>
+                  <Input />
                 )}
               </FormItem>
 
@@ -97,9 +97,9 @@ class UserInfo extends Component {
                 {...formItemLayout}
               >
                 {getFieldDecorator('bio', {
-                  rules: [{required: true, message: '请输入博客地址!'}]
+                  rules: [{ required: true, message: '请输入博客地址!' }]
                 })(
-                  <Input/>
+                  <Input />
                 )}
               </FormItem>
 
@@ -109,9 +109,9 @@ class UserInfo extends Component {
                 {...formItemLayout}
               >
                 {getFieldDecorator('website', {
-                  rules: [{required: true, message: '请输入个人网站!'}]
+                  rules: [{ required: true, message: '请输入个人网站!' }]
                 })(
-                  <Input/>
+                  <Input />
                 )}
               </FormItem>
 
@@ -134,7 +134,7 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {fetchUserInfo, updateUserInfo})(Form.create({
+export default connect(mapStateToProps, { fetchUserInfo, updateUserInfo })(Form.create({
   mapPropsToFields(props) {
     const info = props.userInfo.data
     return {

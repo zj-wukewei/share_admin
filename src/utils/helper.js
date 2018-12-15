@@ -1,13 +1,14 @@
 import moment from 'moment'
 
 export function handleListData(responseData) {
-  const {data, loading, loaded} = responseData
-  let total = 0, list = []
+  const { data, loading, loaded } = responseData
+  let total = 0, list = [], hasMore = false
   if (data) {
     total = data.total
     list = data.list
+    hasMore = data.hasMore
   }
-  return {total, list, loading, loaded}
+  return { total, list, loading, loaded, hasMore }
 }
 
 

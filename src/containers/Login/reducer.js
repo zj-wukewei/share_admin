@@ -7,7 +7,8 @@ import UserManager from '../../utils/userManager';
 const initialState = {
   account: {},
   loginSuccess: false,
-  logoutSuccess: false
+  logoutSuccess: false,
+  information: {}
 }
 
 export default function login(iState = initialState, action) {
@@ -18,10 +19,15 @@ export default function login(iState = initialState, action) {
       UserManager.set(action.data)
       nextIState = nextIState.set('account', action.data)
       break;
-    
+
     case types.DO_LOGIN + phrase.FAILURE:
       nextIState = nextIState.set('loginFailMsg', action.err.msg);
       break;
+
+    case types.INFORMATION + phrase.SUCCESS:
+      nextIState = nextIState.set('information', action.data)
+      break
+
     default:
       break;
   }

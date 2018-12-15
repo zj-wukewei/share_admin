@@ -1,13 +1,13 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Switch, message} from 'antd'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Switch, message } from 'antd'
 
 import Table from '../../components/Table'
-import {changeUserState, fetchUserList} from './action'
+import { changeUserState, fetchUserList } from './action'
 
-import {handleDate, handleListData} from '../../utils/helper'
-import {handleAppRole, handleAppType} from './helper'
-import {PageNum, PageSize} from '../../constants/constant'
+import { handleDate, handleListData } from '../../utils/helper'
+import { handleAppRole, handleAppType } from './helper'
+import { PageNum, PageSize } from '../../constants/constant'
 
 class User extends Component {
 
@@ -22,7 +22,7 @@ class User extends Component {
       title: 'Id',
       dataIndex: 'id',
       render: (id) => <div onClick={() => this.handleOnRowClick(id)}>{id}</div>
-    },{
+    }, {
       title: '手机',
       dataIndex: 'phone'
     }, {
@@ -34,20 +34,20 @@ class User extends Component {
       dataIndex: 'appType',
       render: (appType) => `${handleAppType(appType)}`
     },
-      {
-        title: '注册时间',
-        dataIndex: 'addTime',
-        render: (time) => `${handleDate(time)}`
-      }, {
-        title: '登录时间',
-        dataIndex: 'updateTime',
-        render: (updateTime) => `${handleDate(updateTime)}`
-      }, {
-        title: '状态',
-        dataIndex: 'deleted',
-        render: (deleted, user) => <Switch onChange={(enable) => this.handleToggle(user.id, enable)}
-                                           checked={!deleted}/>
-      }]
+    {
+      title: '注册时间',
+      dataIndex: 'addTime',
+      render: (time) => `${handleDate(time)}`
+    }, {
+      title: '登录时间',
+      dataIndex: 'updateTime',
+      render: (updateTime) => `${handleDate(updateTime)}`
+    }, {
+      title: '状态',
+      dataIndex: 'deleted',
+      render: (deleted, user) => <Switch onChange={(enable) => this.handleToggle(user.id, enable)}
+        checked={!deleted} />
+    }]
   }
 
   onPageChange = (pagination, filters, sorter) => {
@@ -77,17 +77,17 @@ class User extends Component {
   }
 
 
-   componentWillReceiveProps = (nextProps) => {
+  componentWillReceiveProps = (nextProps) => {
     if (nextProps.updateUserStatusSuccess && !this.props.updateUserStatusSuccess) {
       this.fetchUserList()
       message.success('切换用户状态成功!')
     }
   }
 
-  
+
 
   render() {
-    const {loading, total, list} = handleListData(this.props.userList)
+    const { loading, total, list } = handleListData(this.props.userList)
     return (
       <Table
         rowKey={record => record.id}
@@ -96,7 +96,7 @@ class User extends Component {
         onChange={this.onPageChange}
         total={total}
         current={this.state.pageNum}
-        dataSource={list}/>
+        dataSource={list} />
     )
   }
 
@@ -111,4 +111,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, {fetchUserList, changeUserState})(User)
+export default connect(mapStateToProps, { fetchUserList, changeUserState })(User)

@@ -1,0 +1,13 @@
+.home {
+    .meta {
+        display: flex;
+        align-items: center
+    }
+    .footer {
+        margin-top: 10px;
+        margin-left: 4px;
+        span {
+            margin-right: 12px;
+        }
+    }
+}
