@@ -4,10 +4,19 @@
         align-items: center
     }
     .footer {
+        display: flex;
         margin-top: 10px;
         margin-left: 4px;
         span {
             margin-right: 12px;
+            flex: 1;
+            cursor: pointer;
         }
+    }
+    .load-more {
+        text-align: center;
+        margin-top: 12px;
+        line-height: 32px;
+        height: 32px;
     }
 }

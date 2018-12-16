@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Icon, Avatar, Popover, Dropdown, Menu } from 'antd'
+import { Layout, Icon, Avatar, Dropdown, Menu } from 'antd'
 
 import './header.scss'
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { List, Card, Avatar, Icon, Button } from 'antd';
-import { fetchFeedList } from './action';
+import { List, Card, Avatar, Icon, Button, Popconfirm, message } from 'antd';
+import { fetchFeedList, updateFeedStatus } from './action';
 import { PageNum, PageSize } from '../../constants/constant'
 import { handleListData } from '../../utils/helper'
 
@@ -10,9 +10,9 @@ import './home.scss'
 
 const { Meta } = Card;
 
-const IconText = ({ type, text }) => (
+const IconText = ({ type, text, deleted = false }) => (
     <span>
-        <Icon type={type} style={{ marginRight: '4px' }} />
+        <Icon type={type} style={deleted ? { color: 'red', marginRight: '4px' } : { marginRight: '4px' }} />
         {text}
     </span>
 );
@@ -37,19 +37,31 @@ class Home extends Component {
 
     onLoadMore = () => {
         this.setState({
-            pageNum: this.state.pageNum++
+            pageNum: this.state.pageNum + 1
         }, this.fetchFeedList)
     }
 
+    handleDeleteItem = (item) => {
+        console.log('handleDeleteItem', item)
+        this.props.updateFeedStatus({
+            feedId: item.id,
+            deleted: !item.deleted
+        })
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.updataFeedStatusSuccess && !this.props.updataFeedStatusSuccess) {
+            message.success('切换状态成功!')
+        }
+    }
+
     render() {
+        //todo 加载更多的时候还没有处理数组和更改状态的时候还没有刷新
         console.log('Home', this.props.feedList)
         const { loading, total, list, hasMore } = handleListData(this.props.feedList)
 
         const loadMore = hasMore && !loading ? (
-            <div style={{
-                textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px',
-            }}
-            >
+            <div className="load-more">
                 <Button onClick={this.onLoadMore}>加载更多</Button>
             </div>
         ) : null
@@ -66,15 +78,23 @@ class Home extends Component {
                         >
                             <Card
                                 bordered={true}
-                                cover={<img src={item.images} />}>
+                                cover={<img src={item.images} alt="feed图片" />}>
                                 <Meta
                                     className="meta"
                                     avatar={<Avatar src={item.userAvatar} />}
                                     description={item.content}
                                 />
                                 <div className="footer">
-                                    <IconText type="like-o" text="156" />
-                                    <IconText type="message" text="2" />
+                                    <IconText type="like-o" text={item.likeCount} />
+                                    <IconText type="message" text={item.commentCount} />
+                                    <Popconfirm
+                                        title={item.deleted ? "确定取消删除吗？" : "确定要删除吗？"}
+                                        onConfirm={() => this.handleDeleteItem(item)}
+                                        icon={<Icon type="question-circle-o" style={{ color: 'red' }} />}>
+                                        <div>
+                                            <IconText type="delete" deleted={item.deleted} text={item.deleted ? "已删除" : "删除"} />
+                                        </div>
+                                    </Popconfirm>
                                 </div>
                             </Card>
                         </List.Item>
@@ -87,9 +107,10 @@ class Home extends Component {
 
 function mapStateToProps(state) {
     return {
+        updataFeedStatusSuccess: state.feed.updataFeedStatusSuccess,
         feedList: state.feedList,
     }
 }
 
 
-export default connect(mapStateToProps, { fetchFeedList })(Home)
+export default connect(mapStateToProps, { fetchFeedList, updateFeedStatus })(Home)
