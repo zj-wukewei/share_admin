@@ -10,8 +10,8 @@ import './home.scss'
 
 const { Meta } = Card;
 
-const IconText = ({ type, text, deleted = false }) => (
-    <span>
+const IconText = ({ type, text, deleted = false, onClick = null }) => (
+    <span onClick={onClick}>
         <Icon type={type} style={deleted ? { color: 'red', marginRight: '4px' } : { marginRight: '4px' }} />
         {text}
     </span>
@@ -56,9 +56,8 @@ class Home extends Component {
     }
 
     render() {
-        //todo 加载更多的时候还没有处理数组和更改状态的时候还没有刷新
         console.log('Home', this.props.feedList)
-        const { loading, total, list, hasMore } = handlePageListData(this.props.feedList)
+        const { loading, list, hasMore } = handlePageListData(this.props.feedList)
 
         const loadMore = hasMore && !loading ? (
             <div className="load-more">
@@ -86,7 +85,7 @@ class Home extends Component {
                                 />
                                 <div className="footer">
                                     <IconText type="like-o" text={item.likeCount} />
-                                    <IconText type="message" text={item.commentCount} />
+                                    <IconText type="message" text={item.commentCount} onClick={() => this.props.history.push(`/app/feed/comment/${item.id}`)} />
                                     <Popconfirm
                                         title={item.deleted ? "确定取消删除吗？" : "确定要删除吗？"}
                                         onConfirm={() => this.handleDeleteItem(item)}

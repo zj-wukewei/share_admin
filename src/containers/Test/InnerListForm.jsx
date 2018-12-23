@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, Select, Popover } from 'antd'
+import { Form, Input, Button, Select } from 'antd'
 
 
 const FormItem = Form.Item
-const { Option, OptGroup } = Select
+const { Option } = Select
 
 class InnerListForm extends Component {
 
@@ -21,7 +21,7 @@ class InnerListForm extends Component {
         console.log('aaaaaa', value)
         console.log('vvvvv', value)
         console.log('vvvvv', getFieldValue(`list[${k}].name`))
-        if (getFieldValue(`list[${k}].name`) == "") {
+        if (getFieldValue(`list[${k}].name`) === "") {
             callback('name不能为空')
         }
 
@@ -46,7 +46,7 @@ class InnerListForm extends Component {
         const ids = getFieldValue('ids')
         this.test(['name', 'sex'])
         const formItems = ids.map((k, index) => {
-            const item = this.props.list.find(item => item.id == k)
+            const item = this.props.list.find(item => item.id === k)
             getFieldDecorator(`list[${k}].id`, {
                 initialValue: k,
             })

@@ -17,6 +17,7 @@ const rootReducer = combineReducers({
   category,
   user,
   feed,
+  commentList: wrapReducerState(pageList(FeedTypes.FETCH_COMMENT_LIST)),
   feedList: wrapReducerState(pageList(FeedTypes.FETCH_FEED_LIST)),
   userList: wrapReducerState(data(UserTypes.FETCH_USER_LIST)),
   userInfo: wrapReducerState(data(UserTypes.FETCH_USER_INFO, initUserInfo)),

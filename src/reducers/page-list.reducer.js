@@ -24,8 +24,10 @@ const data = (fetchType, defaultData) => {
     switch (action.type) {
       case fetchType + phase.START:
         nextIState = nextIState.set('loaded', false).set('loading', true)
-        if (action.pageNum == PageNum) {
+        if (action.pageNum === PageNum) {
           nextIState = nextIState.set('list', List([]))
+        } else {
+          throw new Error("action 传递 pageNum")
         }
         break
 

@@ -37,8 +37,10 @@ class SiderCustom extends Component {
                 openKeys={[this.state.openKey]}
                 onOpenChange={this.openMenu}
                 selectedKeys={[this.state.selectedKey]} >
-                {menus && menus.map(item =>
-                    item.subs ? this.renderSubMenu(item) : this.renderMenuItem(item)
+                {menus && menus.map(item => {
+                    const hasSub = item.subs && item.subs.filter(sub => sub.sub !== false).length > 0
+                    return hasSub ? this.renderSubMenu(item) : this.renderMenuItem(item)
+                }
                 )}
             </Menu>
         )
