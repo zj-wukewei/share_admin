@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { List, Card, Avatar, Icon, Button, Popconfirm, message } from 'antd';
 import { fetchFeedList, updateFeedStatus } from './action';
 import { PageNum, PageSize } from '../../constants/constant'
-import { handleListData } from '../../utils/helper'
+import { handlePageListData } from '../../utils/helper'
 
 import './home.scss'
 
@@ -58,7 +58,7 @@ class Home extends Component {
     render() {
         //todo 加载更多的时候还没有处理数组和更改状态的时候还没有刷新
         console.log('Home', this.props.feedList)
-        const { loading, total, list, hasMore } = handleListData(this.props.feedList)
+        const { loading, total, list, hasMore } = handlePageListData(this.props.feedList)
 
         const loadMore = hasMore && !loading ? (
             <div className="load-more">

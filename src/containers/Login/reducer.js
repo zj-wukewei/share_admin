@@ -24,6 +24,11 @@ export default function login(iState = initialState, action) {
       nextIState = nextIState.set('loginFailMsg', action.err.msg);
       break;
 
+    case types.DO_LOGOUT + phrase.SUCCESS:
+      UserManager.set(action.data)
+      nextIState = nextIState.set('account', action.data)
+      break;
+
     case types.INFORMATION + phrase.SUCCESS:
       nextIState = nextIState.set('information', action.data)
       break

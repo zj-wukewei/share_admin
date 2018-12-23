@@ -15,15 +15,13 @@ class HeaderCustom extends Component {
     constructor(props) {
         super(props);
         this.menu = (
-            <Menu onClick={this.handleMenuClick}>
+            <Menu onClick={this.props.doLogOut}>
                 <Menu.Item key="1">退出登录</Menu.Item>
             </Menu>
         )
     }
 
-    handleMenuClick = () => {
 
-    }
 
 
     handleHoverChange = (visible) => {

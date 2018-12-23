@@ -14,6 +14,16 @@ export function doLogin(options) {
   }
 }
 
+export function doLogOut() {
+  return {
+    [THREE_PHASE]: {
+      type: types.DO_LOGOUT,
+      http: () => _get(`${urlPrefix}/logout`),
+      handleResponse: response => response
+    }
+  }
+}
+
 export function fetchInformation() {
   return {
     [THREE_PHASE]: {

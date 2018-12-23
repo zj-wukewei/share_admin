@@ -11,6 +11,14 @@ export function handleListData(responseData) {
   return { total, list, loading, loaded, hasMore }
 }
 
+export function handlePageListData(responseData) {
+  let { list, total, loading, loaded, hasMore } = responseData
+  if (!list) {
+    list = []
+  }
+  return { total, list, loading, loaded, hasMore }
+}
+
 
 export function handleDate(time) {
   //todo 待处理 java LocalDateTime 类型传来之后月份差1使用moment解析

@@ -8,6 +8,9 @@ export function fetchFeedList(options) {
     return {
         [THREE_PHASE]: {
             type: types.FETCH_FEED_LIST,
+            startParam: {
+                pageNum: options.pageNum
+            },
             http: () => _post(`${urlPrefix}/feed/list`, { body: options }),
             handleResponse: response => response
         }
