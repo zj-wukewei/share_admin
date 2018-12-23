@@ -1,4 +1,4 @@
-import {message} from 'antd'
+import { message } from 'antd'
 import UserManager from './userManager'
 
 function preHandle(url, option) {
@@ -64,12 +64,27 @@ function method(type) {
           return;
         }
 
+        if (response.status === 500) {
+          message.error('服务器异常，请联系开发人员');
+          return;
+        }
+
         message.error(response.msg)
-       
+
       }).then(result => {
         try {
           if (result.code === 0) {
             resolve(result.data)
+          } else if (result.code === -1001) {
+            message.config({
+              maxCount: 1
+            });
+            message.error("您的登陆信息已失效,请重新登录！", 2, () => {
+              message.config({
+                maxCount: 10
+              });
+              window.location.hash = '#/login';
+            })
           } else {
             console.log('resultmsg', result.msg)
             message.error(result.msg);
